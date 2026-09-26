@@ -23,6 +23,8 @@ GPS 핫스팟에 들어가면 지도에 오염 생명체가 나타나고, 탭하
 
 ## 2. 씬 구성
 
+![시스템 구조](images/architecture.png)
+
 ```
 LoginScene     닉네임 입력 → 서버 등록 (앱 진입점)
 MapScene       GPS 지도, 생명체 마커

@@ -4,6 +4,8 @@ Unity 클라이언트의 납품 점수를 집계하는 REST API입니다.
 FastAPI + SQLAlchemy(async) + SQLite로 만들고, Docker Compose와 Cloudflare Tunnel로 배포합니다.
 API 명세는 [`../docs/API.md`](../docs/API.md)에 있습니다.
 
+![서버 배포 구조](../docs/images/server-infra.png)
+
 ## 구조
 
 ```
