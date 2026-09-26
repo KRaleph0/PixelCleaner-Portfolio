@@ -1,0 +1,36 @@
+services:
+  api:
+    build: .
+    restart: unless-stopped
+    volumes:
+      - db_data:/app/data
+    environment:
+      - DATABASE_URL=sqlite+aiosqlite:///./data/pixelcleaners.db
+      # 구버전 클라이언트가 남아 있는 동안은 false. 신버전 배포 확인 후 true로 바꾼다.
+      - AUTH_ENFORCE=${AUTH_ENFORCE:-false}
+      # 리허설 계정을 랭킹에서 감추려면 접두사를 넣는다. 예: demo-
+      - RANKING_EXCLUDE_PREFIXES=${RANKING_EXCLUDE_PREFIXES:-}
+    # 외부에 직접 포트를 열 필요 없음 — cloudflared가 내부망(api:8000)으로 연결
+    expose:
+      - "8000"
+    healthcheck:
+      test: ["CMD", "python", "-c",
+             "import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/health',timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    # UDP/QUIC(7844)이 막힌 네트워크 대응 — HTTP/2로 강제 폴백
+    command: tunnel --protocol http2 run
+    environment:
+      - TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
+    depends_on:
+      api:
+        condition: service_started
+
+volumes:
+  db_data:

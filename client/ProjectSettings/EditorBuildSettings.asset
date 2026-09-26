@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MapScene.unity
+    guid: bfe5dcac97f04e5448e165d85fb1bdaa
+  - enabled: 1
+    path: Assets/Scenes/FactoryScene.unity
+    guid: 6956788bd9096b246b9da96d0334fe87
+  - enabled: 1
+    path: Assets/Scenes/CreatureScene.unity
+    guid: e0ac6f2826cfdbb409db6c53abaeb7ef
+  - enabled: 1
+    path: Assets/Scenes/BagScene.unity
+    guid: cf1a9cce139c4194c89959ebfedffeac
+  - enabled: 1
+    path: Assets/Scenes/ARScene.unity
+    guid: 60553c40a49084c47bd3716b5ff703c8
+  - enabled: 1
+    path: Assets/Scenes/DeliveryScene.unity
+    guid: 35f759e6858e1c741a1f56b0b48a20a7
+  m_configObjects:
+    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 6ee72d15cf39dd748a13eac57397b9af, type: 2}
+    UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 0465d33c6aee55f44b0237db8b0e0259, type: 2}
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: c199e683398494f32b4cde18e73ab731, type: 2}
+    com.unity.xr.magicleap.magic_leap_settings: {fileID: 11400000, guid: 0b53a025a635a4393ba0b49822242280, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 3fd4fc0127790db4bae83f7b77da8d45, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: b07c4ba7650be4c25b3d0c497e7e2bb8, type: 2}
+  m_UseUCBPForAssetBundles: 0

@@ -1,0 +1,26 @@
+{
+    "name": "PixelCleaners.Editor.Decimate",
+    "rootNamespace": "PixelCleaners.EditorTools",
+    "references": [
+        "Whinarn.UnityMeshSimplifier.Runtime"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "MESH_SIMPLIFIER_PRESENT"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.whinarn.unitymeshsimplifier",
+            "expression": "3.0.0",
+            "define": "MESH_SIMPLIFIER_PRESENT"
+        }
+    ],
+    "noEngineReferences": false
+}

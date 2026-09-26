@@ -1,0 +1,7 @@
+apply plugin: 'com.android.library'
+
+android {
+    namespace 'com.pixelcleaner.theme'
+    compileSdk 34
+    buildToolsVersion "36.0.0"
+}

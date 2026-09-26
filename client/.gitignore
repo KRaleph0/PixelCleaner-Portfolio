@@ -1,0 +1,27 @@
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+*.meta linguist-generated
+Cluade.md
+
+# Gradle 빌드 캐시 (.androidlib 안에 생김)
+.gradle/
+**/.gradle/
+
+# Unity 임시 빌드 산출물
+.utmp/
+
+# 생명체 폴더의 미사용 PBR 텍스처 (게임은 *_texture.png 기본 색상만 사용, 약 172MB)
+# 디스크에는 남겨 두고 git에서만 제외한다. .meta도 함께 제외해 짝 없는 .meta가 생기지 않게 한다
+Assets/Characters/*/*_texture_metallic.png*
+Assets/Characters/*/*_texture_roughness.png*
+Assets/Characters/*/*_texture_metallic_roughness.png*
+Assets/Characters/*/*_texture_normal.png*
+
+# 실제 서버 주소 (예시는 ServerConfig.example.json)
+Assets/Resources/ServerConfig.json
+Assets/Resources/ServerConfig.json.meta
