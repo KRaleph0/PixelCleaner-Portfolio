@@ -67,19 +67,20 @@ UI는 itch.io의 [Pixel UI & HUD Pack](https://deadrevolver.itch.io/pixel-ui-hud
 ## 실행 방법
 
 1. Unity Hub에서 `client/` 폴더를 Unity 6000.3.11f1로 엽니다.
-2. 메뉴 `PixelCleaners → 씬 생성`, `PixelCleaners → TMP 폰트 에셋 생성`을 실행합니다.
-3. `PixelCleaners → 테스트 APK 빌드`로 Android APK를 빌드합니다.
+2. `client/ServerConfig.example.json`을 `client/Assets/Resources/ServerConfig.json`으로 복사해 서버 주소를 넣습니다.
+3. 메뉴 `PixelCleaners → 씬 생성`을 실행합니다.
+4. `PixelCleaners → 테스트 APK 빌드`로 Android APK를 빌드합니다.
 
-에디터에서는 GPS Mock(서울시청 좌표)이 동작합니다. 자세한 절차는 [`docs/HANDOVER.md`](docs/HANDOVER.md)를 참고하세요.
+에디터에서는 GPS Mock(서울시청 좌표)이 동작합니다. 자세한 절차는 [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md#10-빌드)를 참고하세요.
 
 ## 문서
 
-- [`docs/HANDOVER.md`](docs/HANDOVER.md) — 구현 현황, 시스템 구조, 빌드 절차
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — 시스템 구조, 핵심 로직, 설계 판단, 해결한 문제
 - [`docs/CLIENT_MANUAL.md`](docs/CLIENT_MANUAL.md) — Unity 클라이언트 API 연동
 - [`docs/SERVER_MANUAL.md`](docs/SERVER_MANUAL.md) — FastAPI 서버 구현
 - [`docs/GameFlow.drawio`](docs/GameFlow.drawio), [`docs/factory-flow.drawio`](docs/factory-flow.drawio) — 흐름도
 
 ## 현황
 
-핵심 루프(포획 → 생산 → 납품 → 랭킹 → 저장)는 구현 완료입니다. 남은 작업: 로그인 씬 파일 등록,
-QR 플로깅 인증 서버 API, 랭킹 서버 인증 강화.
+핵심 루프(포획 → 생산 → 납품 → 랭킹 → 저장)는 구현 완료입니다. 남은 작업: 클라이언트의 서버 토큰 인증 연동,
+QR 플로깅 인증.
