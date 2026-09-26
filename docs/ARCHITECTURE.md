@@ -1,7 +1,7 @@
 # Pixel Cleaners — 기술 문서
 
 클라이언트(Unity)의 구조와 핵심 시스템, 구현하면서 내린 설계 판단을 정리한 문서입니다.
-서버는 [`../server/README.md`](../server/README.md), API 연동은 [`CLIENT_MANUAL.md`](CLIENT_MANUAL.md)를 참고하세요.
+서버는 [`../server/README.md`](../server/README.md), API 명세는 [`API.md`](API.md)를 참고하세요.
 
 ---
 
@@ -101,6 +101,8 @@ Python으로 포팅해 24시간을 시뮬레이션한 결과, 반경 220m 안 �
 ③ 납품     납품 물품 → 포인트(일반 100pt, 고급 250pt) → 서버에 누적 총점 제출
 ```
 
+![공장 자원 흐름도](images/factory-flow.png)
+
 ### 시설
 
 | 시설 | 요구 능력치 | 기본 사이클 | 출력 |
@@ -198,7 +200,7 @@ GPS (lat, lon) → Web Mercator 타일 좌표 (zoom 18)
 | 내 순위 | `GET /ranking/me` |
 
 - 서버 주소는 `Assets/Resources/ServerConfig.json`에서 읽습니다 (저장소에는 `client/ServerConfig.example.json`만 있습니다).
-- 서버 v1.1에는 제출 토큰 인증과 `?me=` 파라미터가 추가됐습니다. 클라이언트 연동 방법은 `CLIENT_MANUAL.md`에 있습니다.
+- 서버 v1.1에는 제출 토큰 인증과 `?me=` 파라미터가 추가됐습니다. 명세는 `API.md`에 있습니다.
 
 ---
 

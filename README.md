@@ -2,9 +2,8 @@
 
 **AR 플로깅 타이쿤 게임** — 현실 속 쓰레기를 포획하고, 자원으로 되살린다.
 
-실외에서 GPS 핫스팟에 진입하면 지도에 오염 생명체 마커가 나타납니다. 마커를 탭해 AR 씬으로 이동하고,
-자이로스코프 미니게임으로 포획합니다. 포획한 생명체는 공장 시설에 배치해 쓰레기를 자원으로 정제·합성하고,
-완성한 납품 물품을 서버에 제출해 글로벌 랭킹을 겨룹니다.
+GPS 핫스팟에 들어가면 지도에 오염 생명체가 나타납니다. 탭하면 AR 씬에서 포획 미니게임을 하고,
+포획한 생명체를 공장에 배치해 쓰레기를 자원으로 정제·합성합니다. 완성한 납품 물품을 제출해 글로벌 랭킹을 겨룹니다.
 
 ## 프로젝트 정보
 
@@ -15,72 +14,62 @@
 | 관련 논문 | 「메타 SW 기반 AR 플로깅 게임 콘텐츠 개발에 관한 연구」 (공저 4인, 지도교수 포함) |
 | 발표 | 2026 KIIT 하계 종합학술대회 특별세션 |
 
-## 저장소 구조
-
-```
-client/   Unity 6 프로젝트 (Android, AR)
-server/   FastAPI 랭킹 서버
-docs/     인수인계 문서, 서버·클라이언트 연동 매뉴얼, 흐름도(drawio)
-```
-
 ## 게임 루프
 
+![게임 플로우](docs/images/game-flow.png)
+
 ```
-닉네임 입력 → 서버 등록
-   ↓
-GPS 핫스팟 진입 → 지도에 생명체 마커 스폰
-   ↓
-마커 탭 → AR 씬 → 포획 도구 선택(4종) → 포획 미니게임
-   ↓
-정화(보관) / 제거(각성제 획득)
-   ↓
-공장에 생명체 배치 → 자원 생산 → 합성·제작 → 납품 물품
-   ↓
-납품 센터에서 제출 → 글로벌 랭킹
+닉네임 등록 → GPS 핫스팟 진입 → 지도에 생명체 스폰
+→ AR 씬에서 포획 미니게임 → 정화(보관) / 제거(각성제)
+→ 공장에 배치 → 자원 생산 → 제작 → 납품 물품
+→ 납품 → 글로벌 랭킹
 ```
 
 ## 주요 기능
 
-- **GPS × 실시간 지도** — OpenStreetMap 타일(zoom 17, 3×3), Haversine 거리 기반 핫스팟 등급 판정
-- **AR 포획 미니게임** — 자이로스코프 세이프존 조작, 도구 4종, 희귀도 5단계
-- **자원 생산·합성** — 생명체 13종, 시설 5종 + 합성/제작소 4기, 지수형 쿨타임 `baseCycle × 0.90^statPower`
-- **납품 & 글로벌 랭킹** — 납품 센터 씬, 최고 점수만 보존하는 REST API
+- **위치 기반 스폰** — 격자 + 시간 해시로 모든 플레이어에게 같은 스폰을 서버 없이 재현
+- **AR 포획 미니게임** — 터치 드래그·중력센서로 세이프존 유지, 도구 4종, 희귀도 5단계
+- **자원 생산·제작** — 생명체 13종, 시설 5종 + 제작소 4기, 지수형 쿨타임 `baseCycle × 0.90^statPower`
 - **영속성** — JSON 자동 저장, 재접속 시 최대 72시간 오프라인 생산 시뮬레이션
+- **글로벌 랭킹 서버** — FastAPI, 토큰 인증, 경쟁 순위, 이벤트 기간 랭킹
 
 ## 기술 스택
 
 | 구분 | 내용 |
 |------|------|
-| 엔진 | Unity 6 (6000.3.11f1), C# |
-| AR | AR Foundation 6.3.3 + ARCore XR Plugin 6.3.3 |
+| 클라이언트 | Unity 6 (6000.3.11f1), C#, URP, Input System |
+| AR | AR Foundation 6.3.3 + ARCore |
 | 플랫폼 | Android 7.0+ (API 24), IL2CPP, ARM64 |
-| 지도 | Unity Location Service + OpenStreetMap |
-| 백엔드 | FastAPI, SQLAlchemy(async), SQLite |
+| 지도 | Unity Location Service + CARTO / OpenStreetMap 타일 |
+| 서버 | FastAPI, SQLAlchemy(async), SQLite, Docker, Cloudflare Tunnel |
 
-## 외부 에셋 (저장소에 미포함)
+## 저장소 구조
 
-UI는 itch.io의 [Pixel UI & HUD Pack](https://deadrevolver.itch.io/pixel-ui-hud-pack) (Dead Revolver)을 사용했습니다.
-유료 에셋이라 재배포를 피하기 위해 이 저장소에는 포함하지 않았습니다.
-프로젝트를 직접 열려면 팩을 구매해 `client/Assets/`에 임포트해야 합니다 (`Sprites`, `Animations`, `Tilemaps`, `Prefabs`,
-`PixelUI` 스크립트, `DeadRevolver*` 폰트). 임포트하기 전에는 `PixelUI`를 참조하는 스크립트에서 컴파일 오류가 납니다.
-
-## 실행 방법
-
-1. Unity Hub에서 `client/` 폴더를 Unity 6000.3.11f1로 엽니다.
-2. `client/ServerConfig.example.json`을 `client/Assets/Resources/ServerConfig.json`으로 복사해 서버 주소를 넣습니다.
-3. 메뉴 `PixelCleaners → 씬 생성`을 실행합니다.
-4. `PixelCleaners → 테스트 APK 빌드`로 Android APK를 빌드합니다.
-
-에디터에서는 GPS Mock(서울시청 좌표)이 동작합니다. 자세한 절차는 [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md#10-빌드)를 참고하세요.
+```
+client/   Unity 프로젝트
+server/   FastAPI 랭킹 서버
+docs/     기술 문서, API 명세, 흐름도 이미지
+```
 
 ## 문서
 
-- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — 시스템 구조, 핵심 로직, 설계 판단, 해결한 문제
-- [`docs/CLIENT_MANUAL.md`](docs/CLIENT_MANUAL.md) — Unity 클라이언트 API 연동
-- [`docs/SERVER_MANUAL.md`](docs/SERVER_MANUAL.md) — FastAPI 서버 구현
-- [`docs/GameFlow.drawio`](docs/GameFlow.drawio), [`docs/factory-flow.drawio`](docs/factory-flow.drawio) — 흐름도
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — 클라이언트 구조, 핵심 로직, 설계 판단, 해결한 문제
+- [`docs/API.md`](docs/API.md) — 랭킹 API 명세
+- [`server/README.md`](server/README.md) — 서버 구조, 실행, 설계 노트
+## 실행
 
-## 현황
+1. Unity 6000.3.11f1로 `client/`를 엽니다. 아래 UI 에셋 팩을 먼저 임포트해야 합니다.
+2. `client/ServerConfig.example.json`을 `client/Assets/Resources/ServerConfig.json`으로 복사해 서버 주소를 넣습니다.
+3. 메뉴 `PixelCleaners → 씬 생성` 후 `PixelCleaners → 테스트 APK 빌드`.
 
-핵심 루프(포획 → 생산 → 납품 → 랭킹 → 저장)는 구현 완료입니다. 남은 작업: 클라이언트의 서버 토큰 인증 연동,
-QR 플로깅 인증.
+에디터에서는 GPS Mock(서울시청 좌표)으로 동작합니다. 서버 실행은 [`server/README.md`](server/README.md)를 참고하세요.
+
+## 외부 에셋 (미포함)
+
+UI는 itch.io의 [Pixel UI & HUD Pack](https://deadrevolver.itch.io/pixel-ui-hud-pack) (Dead Revolver)을 사용했습니다.
+유료 에셋이라 저장소에 포함하지 않았으며, 임포트 전에는 `PixelUI`를 참조하는 스크립트에서 컴파일 오류가 납니다.
+
+## 남은 과제
+
+- 클라이언트에 서버 토큰 인증 연동
+- QR 플로깅 인증
