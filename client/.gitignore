@@ -25,3 +25,7 @@ Assets/Characters/*/*_texture_normal.png*
 # 실제 서버 주소 (예시는 ServerConfig.example.json)
 Assets/Resources/ServerConfig.json
 Assets/Resources/ServerConfig.json.meta
+
+# PF스타더스트 폰트 (재배포 금지 — 직접 받아서 넣기)
+Assets/Fonts/PF스타더스트*
+Assets/Resources/Fonts/PF스타더스트*

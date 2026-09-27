@@ -80,6 +80,11 @@ docs/     기술 문서, API 명세, 흐름도 이미지
 UI는 itch.io의 [Pixel UI & HUD Pack](https://deadrevolver.itch.io/pixel-ui-hud-pack) (Dead Revolver)을 사용했습니다.
 유료 에셋이라 저장소에 포함하지 않았으며, 임포트 전에는 `PixelUI`를 참조하는 스크립트에서 컴파일 오류가 납니다.
 
+폰트는 [PF스타더스트 3.0](https://noonnu.cc/font_page/1614)을 썼습니다. 라이선스상 재배포가 금지돼 있어 포함하지 않았습니다.
+직접 받아 `client/Assets/Fonts/PF스타더스트 3.0.ttf`로 넣고 `PixelCleaners → TMP 폰트 에셋 생성`을 실행하세요. 없으면 TextMeshPro 기본 폰트로 표시됩니다.
+
+생명체 3D 모델은 Meshy AI(유료 플랜)로 제작했습니다.
+
 ## 남은 과제
 
 - 클라이언트에 서버 토큰 인증 연동
