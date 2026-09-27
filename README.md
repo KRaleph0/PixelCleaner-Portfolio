@@ -54,6 +54,10 @@ GPS 핫스팟에 들어가면 지도에 오염 생명체가 나타납니다. 탭
 | 지도 | Unity Location Service + CARTO / OpenStreetMap 타일 |
 | 서버 | FastAPI, SQLAlchemy(async), SQLite, Docker, Cloudflare Tunnel |
 
+## 개발 도구
+
+- AI 코딩 보조 도구(Claude Code)를 구현 보조와 디버깅에 활용했으며, 설계 결정과 코드 검토는 직접 수행했습니다.
+
 ## 저장소 구조
 
 ```
